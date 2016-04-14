@@ -2,8 +2,8 @@ FROM debian:jessie
 
 WORKDIR /root/
 
-COPY run.sh /root/
-COPY get_pub_key.py /root/
+COPY config/run.sh /root/
+COPY config/get_pub_key.py /root/
 
 RUN echo 'deb-src ftp://ftp.us.debian.org/debian/ sid main contrib non-free' >> /etc/apt/sources.list && \
     apt-get update && \
@@ -26,4 +26,5 @@ RUN echo 'deb-src ftp://ftp.us.debian.org/debian/ sid main contrib non-free' >> 
     ./configure --with-incompatible-bdb --with-gui=no --with-qrencode=no && \
     make
 
-CMD ["bash", "run.sh"]
+ENTRYPOINT ["bash", "/root/run.sh"]
+CMD ["bitcoin"]
